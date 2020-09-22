@@ -6,7 +6,7 @@
 // @match       https://discordapp.com/*
 // @match       https://discord.com/*
 // @updateurl   https://github.com/direshawarma/less-garbage/releases/download/0.3.12-alpha/less-garbage.user.js
-// @version     0.3.16
+// @version     0.3.17
 // @grant       GM_addStyle
 // @require     https://raw.githubusercontent.com/uzairfarooq/arrive/master/minified/arrive.min.js
 // ==/UserScript==
@@ -62,17 +62,19 @@ document.getElementById("app-mount").arrive(".header-23xsNx", function() {
 
   var timestamp = new Date(parseInt(snowflake /4194304 + 1420070400000)); // get leftmost 48 bytes and add unix timestamp for 1/1/2015 00:00.0000
 
-  if (timestamp > (new Date().getTime() - (12*60*60*1000))) { // within the last 12 hours
-    displayedTime.innerText = ('00' + timestamp.getHours()).slice(-2); // hours
+  if (timestamp > 1420070400000) { // fails gracefully by not editing DOM if timestamp can't be determined
+    if (timestamp > (new Date().getTime() - (12*60*60*1000))) { // within the last 12 hours
+      displayedTime.innerText = ('00' + timestamp.getHours()).slice(-2); // hours
+    }
+    else {
+      displayedTime.innerText = days[timestamp.getDay()];//weekday
+      displayedTime.innerText += ' ' + mos[timestamp.getMonth()];//month
+      displayedTime.innerText += ' ' + timestamp.getDate();//day number
+      displayedTime.innerText += ', ' + timestamp.getFullYear();//year
+      displayedTime.innerText += ' at ' + ('00' + timestamp.getHours()).slice(-2);//hours
+    }
+    displayedTime.innerText += ':' + ('00' + timestamp.getMinutes()).slice(-2);//minutes
+    displayedTime.innerText += ':' + ('00' + timestamp.getSeconds()).slice(-2); //seconds
+    //displayedTime.innerText += '.' + ('0000' + timestamp.getMilliseconds()).slice(-4); //milliseconds
   }
-  else {
-    displayedTime.innerText = days[timestamp.getDay()];//weekday
-    displayedTime.innerText += ' ' + mos[timestamp.getMonth()];//month
-    displayedTime.innerText += ' ' + timestamp.getDate();//day number
-    displayedTime.innerText += ', ' + timestamp.getFullYear();//year
-    displayedTime.innerText += ' at ' + ('00' + timestamp.getHours()).slice(-2);//hours
-  }
-  displayedTime.innerText += ':' + ('00' + timestamp.getMinutes()).slice(-2);//minutes
-  displayedTime.innerText += ':' + ('00' + timestamp.getSeconds()).slice(-2); //seconds
-  //displayedTime.innerText += '.' + ('0000' + timestamp.getMilliseconds()).slice(-4); //milliseconds
 });
