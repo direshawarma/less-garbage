@@ -6,7 +6,7 @@
 // @match       https://discordapp.com/*
 // @match       https://discord.com/*
 // @updateurl   https://github.com/direshawarma/less-garbage/releases/download/0.3.12-alpha/less-garbage.user.js
-// @version     0.3.15
+// @version     0.3.16
 // @grant       GM_addStyle
 // @require     https://raw.githubusercontent.com/uzairfarooq/arrive/master/minified/arrive.min.js
 // ==/UserScript==
@@ -36,7 +36,7 @@ GM_addStyle (`
   .tutorial-3w5I9h { /* Hide tutorial nag in inbox */
     display:none;
   }
-  .notice-2FJMB4 { /* Hide desktop install nag */
+  div.notice-3bPHh-.colorDefault-22HBa0 { /* Hide desktop install nag */
     display:none;
   }
   `);
